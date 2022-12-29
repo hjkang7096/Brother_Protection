@@ -40,7 +40,7 @@ DEBUG = int(os.environ.get("DEBUG", 1))
 if os.environ.get("DJANGO_ALLOWED_HOSTS"):
     ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 else:
-    ALLOWED_HOSTS = []
+    ALLOWED_HOSTS = ["3.37.167.175"]
 
 
 # Application definition
