@@ -1,15 +1,18 @@
 from django.contrib import admin
 from django.urls import path, include
-from django.views.generic import TemplateView
 from django.conf import settings
 from django.conf.urls.static import static
 from django_pydenticon.views import image as pydenticon_image
 from django.contrib.auth import views as auth_views
+from django.views.static import serve
+from django.urls import re_path
+from . import views
+
 
 
 urlpatterns = [
-    path("", TemplateView.as_view(template_name="index.html"), name="root"),
-    path("about/", TemplateView.as_view(template_name="about.html"), name="about"),
+    path("", views.index_view, name="root"),
+    path("about/", views.about_view, name="about"),
     path("admin/", admin.site.urls),
     path("blog/", include("blog.urls")),
     path("accounts/", include("accounts.urls")),
@@ -34,11 +37,25 @@ urlpatterns = [
         auth_views.PasswordResetCompleteView.as_view(),
         name="password_reset_complete",
     ),
+    # debug = False : media file을 불러오지 못하는 문제 해결
+    re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+    # debug = False : static file을 불러오지 못하는 문제 해결
+    re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
 ]
 
+handler404 = "mysite.views.page_not_found"
 
-# if settings.DEBUG:  (Holix settings)
-#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-# urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-# urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+
+# azure에는 media, static을 설정해주기 때문에 if settings.DEBUG: 필요
+# urlpatterns += \
+#     static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+# urlpatterns += \
+#     static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+
+
+

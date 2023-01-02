@@ -30,14 +30,21 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get(
-    "SECRET_KEY", "&v-wvynqf^1j#61&1q#s71t=byzm*s=b(e_f767u-k*l3%zll^"
+    "SECRET_KEY"
 )
 
-
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = ["3.37.167.175"]
+DEBUG = int(os.environ.get("DEBUG", 1))
+
+if os.environ.get("DJANGO_ALLOWED_HOSTS"):
+    ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
+else:
+    ALLOWED_HOSTS = []
+
+# DEBUG = True
+#
+# ALLOWED_HOSTS = ["3.37.167.175"]
 
 
 # Application definition
@@ -147,7 +154,6 @@ STATIC_URL = "/static/"
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "mysite", "static")]
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
-
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
@@ -166,8 +172,8 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.googlemail.com"
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = "hjkang7096@gmail.com"
-EMAIL_HOST_PASSWORD = "nhfoygufekhwnnza"
+EMAIL_HOST_USER = "EMAIL_HOST_USER"
+EMAIL_HOST_PASSWORD = "EMAIL_HOST_PASSWORD"
 
 LOGIN_URL = "/"
 LOGIN_REDIRECT_URL = reverse_lazy("root")
@@ -175,7 +181,6 @@ LOGIN_REDIRECT_URL = reverse_lazy("root")
 # summernote 기능을 구현하기 위해 꼭 필요한 인자 (django 3.0 이상부터)
 X_FRAME_OPTIONS = "SAMEORIGIN"
 
-SUMMERNOTE_THEME = "bs5"
 
 # summernote setting
 SUMMERNOTE_CONFIG = {

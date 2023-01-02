@@ -7,3 +7,4 @@ django-summernote
 pilkit
 django-imagekit
 django-tinymce
+django-dotenv
