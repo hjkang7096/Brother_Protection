@@ -19,18 +19,14 @@
                 {% if post.comment_set.exists %}
                     {% for comment in post.comment_set.all %}
                         <!-- Comment with nested comments-->
-                        <div class="d-flex mb-4 mt-4">
+                        <div class="d-flex mt-5">
                             <!-- Parent comment-->
                             <div class="flex-shrink-0">
-                                <img class="rounded-circle" src="{{ comment.author.avatar_url }}" alt="pydenticon_image" style="height: 60px; width: 60px"/>
+                                <img class="rounded-circle me-3" src="{{ comment.author.avatar_url }}" alt="pydenticon_image" style="height: 60px; width: 60px"/>
                             </div>
-                            <div class="ms-3">
-                                <div class="fw-bold d-flex"> {{ comment.author }} &nbsp;&nbsp;&nbsp;&nbsp;
-                                    {% if comment.created_at == comment.updated_at %}
-                                        <small class="text-muted">{{ comment.created_at | date:"Y.m.d H:i"}}</small>&nbsp;&nbsp;&nbsp;&nbsp;
-                                    {% else %}
-                                        <small class="text-muted">{{ comment.updated_at | date:"Y-m-d H:i"}}</small>&nbsp;&nbsp;&nbsp;&nbsp;
-                                    {% endif %}
+                            <div class="">
+                                <div class="flex-shrink-0">
+                                    <span>{{ comment.author }} &nbsp;&nbsp;&nbsp;&nbsp;</span>
                                     {% if user.is_authenticated and comment.author == user %}
 {#                                        <a role="button" class="btn btn-sm btn-outline-primary" style="font-size: 1.5px" href="{% url "blog:comment_edit" comment.pk %}">수정</a>&nbsp;#}
 {#                                        <i class="fa-solid fa-delete-left" role="button" data-bs-toggle="modal" data-bs-target="#CommentDeleteModal">삭제</i>#}
@@ -38,10 +34,17 @@
                                         <i class="fa-solid fa-delete-left mt-1" role="button" data-bs-toggle="modal" data-bs-target="#CommentDeleteModal"></i>
                                         {% include "blog/comment_delete_modal.html" %}
                                     {% endif %}
+                                    <div class="text-muted mt-2">
+                                        {% if comment.created_at == comment.updated_at %}
+                                            <small class="text-muted">Updated : {{ comment.created_at | date:"Y.m.d H:i"}}</small>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        {% else %}
+                                            <small class="text-muted">{{ comment.updated_at | date:"Y.m.d H:i"}}</small>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        {% endif %}
+                                    </div>
                                 </div>
-                                <p class="mt-1">{{ comment.message | linebreaks }}</p>
                             </div>
                         </div>
+                        <p class="ms-2">{{ comment.message | linebreaks }}</p>
                     {% endfor %}
                 {% endif %}
             </div>
