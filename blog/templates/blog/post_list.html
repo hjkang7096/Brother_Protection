@@ -28,6 +28,7 @@
                                 <span class="badge rounded-pill bg-secondary float-end" style="font-size: small"> {{ post.category }} </span>
                             {% endif %}
                         </h3>
+                        <br>
                         <p class="card-text lh-base mt2">{{ post.content|truncatewords:45 |safe }}</p>
                         {% if post.tag.exists %}
                             <i class="fas fa-tags" style="font-size:14px"></i>
