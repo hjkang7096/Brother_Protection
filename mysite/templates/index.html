@@ -1,26 +1,69 @@
-
-{% extends "layout.html" %}
+{#{% extends "layout.html" %}#}
 {% load bootstrap5 static%}
 
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Brother_Protection</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="{% static "startbootstrap-blog-home-gh-pages/assets/favicon.ico" %}"/>
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{% static "bootstrap-5.2.0-dist/bootstrap-5.2.0-dist/css/bootstrap.min.css" %}" rel="stylesheet" />
+        <link href="{% static "index.css" %}" rel="stylesheet" />
+        <!-- JQuery -->
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+       <!-- Fontawesome -->
+        <script src="https://kit.fontawesome.com/a33698b627.js" crossorigin="anonymous"></script>
+    </head>
 
+    <body>
+        <!-- Messages-->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}" role="alert">
+                    <span class="fst-italic fw-bold" STYLE="font-size: large">
+                        {{ message | safe }}
+                    </span>
+                </div>
+            {% endfor %}
+        {% endif %}
 
-{% block content %}
-    {% include "navbar.html" %}
-    <div class="container text-center">
-        <div class="row">
-            <div class="col-12">
-                <a href="{% url "accounts:login" %}">
-                    <img src="{% static "img/city-g311bc573d_1920.jpg" %}" class="card-img-top" alt="Django">
-                </a>
-            </div>
-{#            <div class="col">#}
-{#                <img src="{% static "img/bootstrap-social-logo.png" %}" class="card-img-top" alt="" height="300px" width="300px">#}
+        {% include "navbar.html" %}
+
+{#        <div class="container">#}
+{#            <div class="row">#}
+{#                <div class="col-lg-12">#}
+{#                    <a href="{% url "accounts:login" %}">#}
+{#                        <img src="{% static "img/shaking-hands-3096229.jpg" %}" class="card-img"  alt="Django">#}
+{#                    </a>#}
+{#                </div>#}
 {#            </div>#}
-{#            <div class="col">#}
-{#                <img src="{% static "img/anaconda.png" %}" class="card-img-top" alt="" height="300px" width="300px">#}
-{#            </div>#}
+{#        </div>#}
+        <div class="fixed-bottom">
+            {% include "footer.html" %}
         </div>
-    </div>
-    {% include "footer.html" %}
+    </body>
 
-{% endblock content %}
+</html>
+
+
+
+
+{#{% block content %}#}
+{#    {% include "navbar.html" %}#}
+{#    <div class="container text-center">#}
+{#        <div class="row">#}
+{#            <div class="col-lg-12">#}
+{#                <a href="{% url "accounts:login" %}">#}
+{#                    <img src="{% static "img/shaking-hands-3096229.jpg" %}" class="card-img-top" alt="Django">#}
+{#                </a>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#    {% include "footer.html" %}#}
+{##}
+{#{% endblock content %}#}
