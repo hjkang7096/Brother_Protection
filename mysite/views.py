@@ -1,7 +1,12 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
+import logging
+
+logger = logging.getLogger("brother")
 
 class IndexView(TemplateView):
+    3/0 # 강제로 오류 발생
+    logger.info("INFO 레벨로 출력")
     template_name = "index.html"
 
 
