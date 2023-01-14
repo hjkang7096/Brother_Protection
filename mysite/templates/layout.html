@@ -1,0 +1,45 @@
+{% load bootstrap5 static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Brother_Protection</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="{% static "startbootstrap-blog-home-gh-pages/assets/favicon.ico" %}"/>
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{% static "startbootstrap-blog-home-gh-pages/css/styles.css" %}" rel="stylesheet" />
+        <!-- JQuery -->
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+       <!-- Fontawesome -->
+        <script src="https://kit.fontawesome.com/a33698b627.js" crossorigin="anonymous"></script>
+    </head>
+
+    <body>
+        <!-- Messages-->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}" role="alert">
+                    <span class="fst-italic fw-bold" STYLE="font-size: large">
+                        {{ message | safe }}
+                    </span>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <!-- Page content-->
+        {% block content %}
+
+        {% endblock content %}
+    </body>
+
+</html>
+
+
+
+
+
