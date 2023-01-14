@@ -41,6 +41,7 @@ class Post(models.Model):
         options={"quality": 60},
     )  # 저장 옵션
     file_upload = models.FileField(upload_to="blog/files/%Y/%m%d", blank=True)
+    n_count = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     category = models.ForeignKey(
@@ -69,6 +70,10 @@ class Post(models.Model):
             tag, _ = Tag.objects.get_or_create(name=tag_name)
             tag_list.append(tag)
         return tag_list
+    @property
+    def update_counter(self):
+        self.n_count = self.n_count + 1
+        self.save()
 
     class Meta:
         ordering = ["-id"]
