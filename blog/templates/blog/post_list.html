@@ -40,10 +40,13 @@
                             <br>
                             <br>
                         {% endif %}
-                        <a class="btn btn-primary" href="{{ post.get_absolute_url }}">Read more →</a>
+                        <div>
+                            <a class="btn btn-primary" href="{{ post.get_absolute_url }}">Read more →</a>
+                        </div>
                     </div>
                     <div class="card-footer text-muted">
                         Posted on {{ post.created_at | date:"Y-m-d" }} by {{ post.author | upper }}
+                        <div class="d-flex float-end" style="font-weight: bold; color: #6c757d; color: #6c757d">조회수({{ post.n_count }})</div>
                     </div>
                 </div>
             {% endfor %}
