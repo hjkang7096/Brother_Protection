@@ -69,6 +69,7 @@ INSTALLED_APPS = [
     "accounts",
     "board1",
     "board2",
+    "firetube",
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+{% load bootstrap5 %}
+
+{% block content %}
+
+{% include "navbar.html" %}
+<!-- Page header with logo and tagline-->
+<header class="py-3 bg-white border-bottom mb-4">
+    <div class="container">
+        <div class="text-center my-3">
+            <h1 class="fw-bolder"> Fire_Tube
+                {% if name %}
+                    <span class=""> ({{ name }}) </span>
+                {% elif search %}
+                    <span class=""> (Search) </span>
+                {% else %}
+                {% endif %}
+            </h1>
+            <br>
+            <p class="lead mb-0 fw-bold">
+                <span class="fst-italic">"Fire_Tube에 오신것을 환영합니다." </span>
+            </p>
+        </div>
+    </div>
+</header>
+
+<div class="container">
+    <div class="row">
+        <!-- Blog entries-->
+        <div class="col-lg-8">
+            <div class="alert alert-success text-lg-center" role="alert">
+                <h4 class="alert-heading">Fire_Tube!</h4>
+                <p>Fire_Tube에서는 소방에 관한 각종 영상을 제공합니다..</p>
+                <hr>
+                <p class="mb-0">영상을 보시고 궁금한 점은 언제든지 댓글을 남겨주시면 빠른 시간내에 답변드리겠습니다.</p>
+            </div>
+
+            {% block semi_content %}
+
+            {% endblock semi_content %}
+        </div>
+        {% include "firetube/side_widgets.html" %}
+    </div>
+</div>
+
+{% include "footer.html" %}
+
+    <style type="text/css">
+        a { text-decoration:none; color: black }
+    </style>
+
+{% endblock content %}
+
+

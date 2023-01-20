@@ -18,6 +18,7 @@ urlpatterns = [
     path("accounts/", include("accounts.urls")),
     path("board1/", include("board1.urls")),
     path("board2/", include("board2.urls")),
+    path("firetube/", include("firetube.urls")),
     path("identicon/image/<path:data>/", pydenticon_image, name="pydenticon_image"),
     path("summernote/", include("django_summernote.urls")),
     path("tinymce/", include("tinymce.urls")),
