@@ -8,3 +8,4 @@ pilkit
 django-imagekit
 django-tinymce
 django-dotenv
+django-embed-video

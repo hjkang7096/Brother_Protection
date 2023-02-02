@@ -1,7 +1,38 @@
 {% extends "firetube/post_base.html" %}
-{% load bootstrap5 %}
+{% load bootstrap5 static thumbnail humanize embed_video_tags %}
 
     {% block semi_content %}
 
+        <div class="d-flex">
+            {% for video in page_obj %}
+            <div class="card mt-3 ms-3" style="width: 18rem; height: 26rem;">
+                    {% video video.video as youtube %}
+                        <img src="{{ youtube.thumbnail }}" style="width: 100%; height: 50%;" alt="...">
+                    {% endvideo %}
+                <div class="card-body">
+                    <a href="{% url "firetube:video_detail" video.pk %}">
+                        <h5 class="card-title">{{ video.title }}</h5>
+                        <p class="card-text">{{ video.description|truncatewords:6 }}</p>
+                    </a>
+                </div>
+                <div class="card-footer">
+                    13분 전, 조회수( )
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        {% bootstrap_pagination page_obj %}
+        <style> ul.pagination { justify-content: center; margin-top: 20px; margin-bottom: 20px} </style>
 
     {% endblock semi_content %}
+
+{#            <div class="card ms-3 mt-3" style="width: 18rem; height: 26rem;">#}
+{#                <img src="{{ video.photo }}" class="card-img-top" alt="...">#}
+{#                <div class="card-body">#}
+{#                    <h5 class="card-title">Card title</h5>#}
+{#                    <p class="card-text">Some quick </p>#}
+{#                    <a href="#" class="btn btn-primary mt-5">Go somewhere</a>#}
+{#                </div>#}
+{#            </div>#}
+

@@ -4,6 +4,7 @@ import os
 import sys
 import dotenv
 
+
 def main():
     if __name__ == "__main__":
         dotenv.read_dotenv()
@@ -19,6 +20,7 @@ def main():
                 "forget to activate a virtual environment?"
             ) from exc
         execute_from_command_line(sys.argv)
+
 
 if __name__ == "__main__":
     main()

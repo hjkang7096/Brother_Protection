@@ -4,6 +4,7 @@ import logging
 
 logger = logging.getLogger("brother")
 
+
 class IndexView(TemplateView):
     logger.info("INFO 레벨로 출력")
 
@@ -24,5 +25,4 @@ def page_not_found(request, exception):
     """
     404 page not found
     """
-    return render(request, "404.html",{})
-
+    return render(request, "404.html", {})
