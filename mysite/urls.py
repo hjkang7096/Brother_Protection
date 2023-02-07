@@ -9,7 +9,6 @@ from django.urls import re_path
 from . import views
 
 
-
 urlpatterns = [
     path("", views.index_view, name="root"),
     path("about/", views.about_view, name="about"),
@@ -18,6 +17,7 @@ urlpatterns = [
     path("accounts/", include("accounts.urls")),
     path("board1/", include("board1.urls")),
     path("board2/", include("board2.urls")),
+    path("firetube/", include("firetube.urls")),
     path("identicon/image/<path:data>/", pydenticon_image, name="pydenticon_image"),
     path("summernote/", include("django_summernote.urls")),
     path("tinymce/", include("tinymce.urls")),
@@ -38,15 +38,12 @@ urlpatterns = [
         name="password_reset_complete",
     ),
     # debug = False : media file을 불러오지 못하는 문제 해결
-    re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+    re_path(r"^media/(?P<path>.*)$", serve, {"document_root": settings.MEDIA_ROOT}),
     # debug = False : static file을 불러오지 못하는 문제 해결
-    re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
+    re_path(r"^static/(?P<path>.*)$", serve, {"document_root": settings.STATIC_ROOT}),
 ]
 
 handler404 = "mysite.views.page_not_found"
-
-
-
 
 
 # azure에는 media, static을 설정해주기 때문에 if settings.DEBUG: 필요
@@ -54,8 +51,3 @@ handler404 = "mysite.views.page_not_found"
 #     static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 # urlpatterns += \
 #     static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-
-
-
-

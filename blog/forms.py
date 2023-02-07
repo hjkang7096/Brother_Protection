@@ -1,7 +1,5 @@
 from django import forms
 from .models import Post, Comment
-from django_summernote.widgets import SummernoteWidget
-from tinymce.widgets import TinyMCE
 
 
 class PostForm(forms.ModelForm):

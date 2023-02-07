@@ -2,8 +2,8 @@
 {% load bootstrap5 humanize %}
 
 
+
     {% block semi_content %}
-        {{ post.update_counter }}
 
         <!-- Post content-->
         <article>
@@ -23,7 +23,6 @@
                     </div>
                 </div>
                 <br>
-{#                <hr class="btn-outline-dark">#}
 
                 <!-- Post categories-->
                 <a class="badge bg-secondary text-decoration-none link-light me-1 mt-1" style="font-size: small;" href="{% url "blog:post_list" %}"> 목록 </a>
@@ -73,6 +72,7 @@
         </article>
         <!-- Comments section-->
             {% include "blog/comment_form.html" %}
+            <span style="display: none">{{ post.update_counter }}</span>
 
     {% endblock semi_content %}
 
