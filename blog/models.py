@@ -75,6 +75,7 @@ class Post(models.Model):
     def update_counter(self):
         self.n_count = self.n_count + 1
         self.save()
+        return self.n_count
 
     class Meta:
         ordering = ["-id"]

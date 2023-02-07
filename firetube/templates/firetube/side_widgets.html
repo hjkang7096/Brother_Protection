@@ -21,7 +21,7 @@
                 <div class="col-sm-6">
                     <ul class="list-unstyled mb-2">
                         <li>
-                            <a class="text-muted" href="{% url "board1:post_list" %}"> 전 체 <span class="float-sm-end">({{ total_category_count }})</span></a>
+                            <a class="text-muted" href="{% url "firetube:video_list" %}"> 전 체 <span class="float-sm-end">({{ total_category_count }})</span></a>
                         </li>
                     </ul>
                 </div>
@@ -29,7 +29,7 @@
                     <div class="col-sm-6">
                         <ul class="list-unstyled mb-2">
                             <li>
-                                <a class="text-muted" href="{% url "board1:post_list_category" category.name %}">{{ category.name }} <span class="float-sm-end">({{ category.post_set.count }})</span></a>
+                                <a class="text-muted" href="{% url "firetube:video_list_category" category.name %}">{{ category.name }} <span class="float-sm-end">({{ category.post_set.count }})</span></a>
                             </li>
                         </ul>
                     </div>
@@ -37,7 +37,7 @@
                 <div class="col-sm-6">
                     <ul class="list-unstyled mb-2">
                         <li>
-                            <a class="text-muted" href="{% url "board1:post_list_category" "기 타" %}"> 기 타 <span class="float-sm-end">({{ no_category_count }})</span></a>
+                            <a class="text-muted" href="{% url "firetube:video_list_category" "기 타" %}"> 기 타 <span class="float-sm-end">({{ no_category_count }})</span></a>
                         </li>
                     </ul>
                 </div>
@@ -51,7 +51,7 @@
     function searchPost(){
         let searchValue = document.getElementById("search-input").value.trim();
         if (searchValue.length > 1) {
-            location.href = "/board1/post_list_search/" + searchValue + "/";
+            location.href = "/firetube/video_list_search/" + searchValue + "/";
         }
         else {
             alert("검색어(" + searchValue + ")가 너무 짧습니다.")

@@ -14,7 +14,7 @@
 
 {% block semi_content %}
 <!-- Post content-->
-    <article class="ms-3">
+    <article class="ms-3 mb-5">
         <!-- video header-->
         <header class="mb-2">
             <!-- video title-->
@@ -42,7 +42,7 @@
         </header>
         <!-- Preview video figure-->
         {% video video.video as youtube %}
-            <iframe src="{{ youtube.url }}" name="iframe" width="100%" height="500px"></iframe>
+            <iframe src="{{ youtube.url }}" name="iframe" width="100%" height="500px" allowfullscreen></iframe>
         {% endvideo %}
 
         <!-- Post content-->
@@ -52,6 +52,6 @@
     </article>
 
         <!-- Comments section-->
-{#            {% include "blog/comment_form.html" %}#}
-{#            <span style="display: none">{{ post.update_counter }}</span>#}
+            {% include "firetube/comment_form.html" %}
+            <span style="display: none">{{ video.update_counter }}</span>
 {% endblock semi_content %}

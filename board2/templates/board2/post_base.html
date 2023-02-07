@@ -8,6 +8,7 @@
 <header class="py-3 bg-white border-bottom mb-4">
     <div class="container">
         <div class="text-center my-3">
+            <br>
             <h1 class="fw-bolder"> 소방서비스
                 {% if name %}
                     <span class=""> ({{ name }}) </span>
@@ -17,9 +18,9 @@
                 {% endif %}
             </h1>
             <br>
-            <p class="lead mb-0 fw-bold">
-                <span class="fst-italic">"소방서비스에 대해여 문의해 주세요!" </span>
-            </p>
+{#            <p class="lead mb-0 fw-bold">#}
+{#                <span class="fst-italic">"소방서비스에 대해여 문의해 주세요!" </span>#}
+{#            </p>#}
         </div>
     </div>
 </header>
@@ -30,9 +31,9 @@
         <div class="col-lg-8">
             <div class="alert alert-danger text-lg-center" role="alert">
                 <h4 class="alert-heading">Well done!</h4>
-                <p>이 페이지는 작동기능점검 등 각종 소방서비스를 제공하기 위해 만든 페이지입니다.</p>
+                <p>이 게시판은 각종 소방서비스를 제공하기 위해 만든 페이지입니다.</p>
                 <hr>
-                <p class="mb-0">개인정보는 작성자 및 관리자만 열람할 수 있습니다. 글을 작성하시면 곧 관리자가 연락드리겠습니다!.</p>
+                <p class="mb-0">개인정보는 작성자 및 관리자만 열람할 수 있으며, 글을 작성하시면 곧 관리자가 연락드리겠습니다!.</p>
             </div>
 
             {% block semi_content %}

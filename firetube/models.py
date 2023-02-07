@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.urls import reverse
 from embed_video.fields import EmbedVideoField
 
 
@@ -22,8 +23,21 @@ class Video(models.Model):
     category = models.ForeignKey(
         Category, null=True, blank=True, on_delete=models.SET_NULL
     )
+    n_count = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def get_absolute_url(self):
+        return reverse("firetube:video_detail", args=[self.pk])
+
+    @property
+    def update_counter(self):
+        self.n_count = self.n_count + 1
+        self.save()
+        return self.n_count
+
+    class Meta:
+        ordering = ["-id"]
 
 
 class Comment(models.Model):
@@ -36,3 +50,12 @@ class Comment(models.Model):
     message = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["-id"]
+
+    def __str__(self):
+        return "{}::{}".format(self.author, self.message)
+
+    def get_absolute_url(self):
+        return f"{self.video.get_absolute_url()}#comment-{self.pk}"
