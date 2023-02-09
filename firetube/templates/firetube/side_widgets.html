@@ -29,7 +29,7 @@
                     <div class="col-sm-6">
                         <ul class="list-unstyled mb-2">
                             <li>
-                                <a class="text-muted" href="{% url "firetube:video_list_category" category.name %}">{{ category.name }} <span class="float-sm-end">({{ category.post_set.count }})</span></a>
+                                <a class="text-muted" href="{% url "firetube:video_list_category" category.name %}">{{ category.name }} <span class="float-sm-end">({{ category.video_set.count }})</span></a>
                             </li>
                         </ul>
                     </div>
