@@ -1,4 +1,4 @@
-{% extends "blog/post_base.html" %}
+{% extends "firetube/post_base.html" %}
 {% load bootstrap5 embed_video_tags %}
 
 {#    {% block semi_content %}#}
@@ -30,7 +30,7 @@
                     <span class="justify-content-end" style="font-size: 14px">Posted on {{ video.created_at | date:"Y-m-d" }} </span>
                 </div>
             </div>
-            <br>
+            <hr>
 
             <!-- Post categories-->
             <a class="badge bg-secondary text-decoration-none link-light me-1 mt-1" style="font-size: small;" href="{% url "firetube:video_list" %}"> 목록 </a>
