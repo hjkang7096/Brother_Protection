@@ -9,39 +9,42 @@
         {% if user.is_authenticated %}
             <div class="card-body">
                 <!-- Comment form-->
-                <form class="mb-3" method="POST" enctype="multipart/form-data" action="{% url "blog:new_comment" post.pk%}">
+                <form id="post-{{ post.pk }}-comment-form" class="mb-3" method="POST" enctype="multipart/form-data" action="{% url "blog:new_comment" post.pk%}">
                     {% csrf_token %}
                     {% bootstrap_form comment_form layout="inline" %}
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
                         {% bootstrap_button "Submit" button_type="submit" button_class="btn-primary" %}
                     </div>
                 </form>
+{#                <div id="post-{{ post.pk }}-comment-list" class="d-flex mt-5"></div>#}
                 {% if post.comment_set.exists %}
                     {% for comment in post.comment_set.all %}
-                        <!-- Comment with nested comments-->
-                        <div class="d-flex mt-5">
-                            <!-- Parent comment-->
-                            <div class="flex-shrink-0">
-                                <img class="rounded-circle me-3" src="{{ comment.author.avatar_url }}" alt="pydenticon_image" style="height: 60px; width: 60px"/>
-                            </div>
-                            <div class="ms-1">
-                                <div class="fw-bold mb-2">{{ comment.author }}
-                                    <span class="ms-2">
-                                        {% if comment.created_at == comment.updated_at %}
-                                            <small class="text-muted">Updated : {{ comment.created_at | date:"Y.m.d H:i"}}</small>
-                                        {% else %}
-                                            <small class="text-muted">{{ comment.updated_at | date:"Y.m.d H:i"}}</small>
-                                        {% endif %}
-                                    </span>
-                                </div>
-                                {{ comment.message | linebreaks }}
-                                {% if user.is_authenticated and comment.author == user %}
+{#                  <!-- Comment with nested comments-->#}
+{#                    <div class="d-flex mt-5">#}
+                        {% include "blog/_comment.html" %}
+
+{#                        <!-- Parent comment-->#}
+{#                        <div class="flex-shrink-0">#}
+{#                            <img class="rounded-circle me-3" src="{{ comment.author.avatar_url }}" alt="pydenticon_image" style="height: 60px; width: 60px"/>#}
+{#                        </div>#}
+{#                        <div class="ms-1">#}
+{#                            <div class="fw-bold mb-2">{{ comment.author }}#}
+{#                                <span class="ms-2">#}
+{#                                    {% if comment.created_at == comment.updated_at %}#}
+{#                                        <small class="text-muted">Updated : {{ comment.created_at | date:"Y.m.d H:i"}}</small>#}
+{#                                    {% else %}#}
+{#                                        <small class="text-muted">{{ comment.updated_at | date:"Y.m.d H:i"}}</small>#}
+{#                                    {% endif %}#}
+{#                                </span>#}
+{#                            </div>#}
+{#                            {{ comment.message | linebreaks }}#}
+{#                            {% if user.is_authenticated and comment.author == user %}#}
 {#                                    <a role="button" class="btn btn-primary" style="font-size: 2.0px" href="{% url "blog:comment_edit" comment.pk %}">수정</a>#}
-                                    <a role="button" class="btn btn-danger" style="font-size: 12px" data-bs-toggle="modal" data-bs-target="#CommentDeleteModal">삭제</a>&nbsp;
-                                    {% include "blog/comment_delete_modal.html" %}
-                                {% endif %}
-                            </div>
-                        </div>
+{#                                <a role="button" class="btn btn-danger" style="font-size: 12px" data-bs-toggle="modal" data-bs-target="#CommentDeleteModal">삭제</a>&nbsp;#}
+{#                                {% include "blog/comment_delete_modal.html" %}#}
+{#                            {% endif %}#}
+{#                        </div>#}
+{#                    </div>#}
                     {% endfor %}
                 {% endif %}
             </div>
@@ -54,3 +57,34 @@
         {% endif %}
     </div>
 </section>
+
+
+
+<script>
+    $(function () {
+        var form_id = "post-{{ post.pk }}-comment-form";
+        $("#" + form_id).submit(function (e) {
+            e.preventDefault();
+
+            var options = {
+                success: function (responseText, statusText, xhr, $form) {
+                    console.group("ajaxSubmit response");
+                    console.log(responseText);
+                    console.log(statusText);
+                    console.log(xhr);
+                    console.log($form);
+                    console.groupEnd();
+
+                    $("#" + form_id).after(responseText);
+                    $("textarea[name=message]").val("");
+
+                    {#$("#" + form_id ).prepend(responseText)#}
+                }
+            };
+            $(this).ajaxSubmit(options);
+        });
+        console.log("document ready.")
+
+    });
+</script>
+
