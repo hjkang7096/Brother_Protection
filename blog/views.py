@@ -6,6 +6,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from .models import Post, Comment, Category
 from .forms import PostForm, CommentForm
+import random
 
 
 def post_list(request):
@@ -228,6 +229,14 @@ def comment_new(request, pk):
                 comment.author = request.user
                 comment.post = post
                 comment.save()
+                if request.is_ajax():
+                    return render(
+                        request,
+                        "blog/_comment.html",
+                        {
+                            "comment": comment,
+                        },
+                    )
                 return redirect("blog:post_detail", post.pk)
         else:
             comment_form = CommentForm()
