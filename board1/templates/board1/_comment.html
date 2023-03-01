@@ -1,0 +1,127 @@
+{#{% load bootstrap5 %}#}
+{##}
+{#<!-- Comment with nested comments-->#}
+{#<div class="d-flex mt-5">#}
+{#    <!-- Parent comment-->#}
+{#    <div class="flex-shrink-0">#}
+{#        <img class="rounded-circle me-3" src="{{ comment.author.avatar_url }}" alt="pydenticon_image" style="height: 60px; width: 60px"/>#}
+{#    </div>#}
+{#    <div class="ms-1">#}
+{#        <div class="fw-bold mb-2">{{ comment.author }}#}
+{#            <span class="ms-2">#}
+{#                {% if comment.created_at == comment.updated_at %}#}
+{#                    <small class="text-muted">{{ comment.created_at | date:"Y.m.d H:i"}}</small>#}
+{#                {% else %}#}
+{#                    <small class="text-muted">{{ comment.updated_at | date:"Y.m.d H:i"}}</small>#}
+{#                {% endif %}#}
+{#            </span>#}
+{#        </div>#}
+{#        {{ comment.message | linebreaks }}#}
+{#        {% if user.is_authenticated and comment.author == user %}#}
+{#                                    <a role="button" class="btn btn-primary" style="font-size: 2.0px" href="{% url "blog:comment_edit" comment.pk %}">수정</a>#}
+{#            <a role="button" class="btn btn-danger" style="font-size: 12px" data-bs-toggle="modal" data-bs-target="#CommentDeleteModal">삭제{{ comment.pk }}</a>&nbsp;#}
+{#            <a role="button" class="btn btn-danger" style="font-size: 12px" href="{% url "board1:comment_delete" comment.pk %}">삭제{{ comment.pk }}</a>&nbsp;#}
+{#            {% include "board1/comment_delete_modal.html" %}#}
+{#        {% endif %}#}
+{#    </div>#}
+{#    <!-- Modal -->#}
+{#    <div class="modal fade" id="CommentDeleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">#}
+{#        <div class="modal-dialog">#}
+{#            <div class="modal-content">#}
+{#                <div class="modal-header">#}
+{#                    <h5 class="modal-title" id="CommentDeleteModal">댓글 삭제</h5>#}
+{#                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>#}
+{#                </div>#}
+{#                <div class="modal-body">#}
+{#                    <span class="fst-italic">정말 삭제하시겠습니까?</span>#}
+{#                </div>#}
+{#                <div class="modal-footer">#}
+{#                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >Close</button>#}
+{#                    <a class="btn btn-primary" href="{% url "board1:comment_delete" comment.pk %}">Delete{{ comment.id }}</a>#}
+{#                    <button type="button" onclick="delete_modal()" class="btn btn-primary">De</button>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{##}
+{#</div>#}
+{##}
+{#<script type="text/javascript">#}
+{#    function delete_modal() {#}
+{#        console.log({{ comment.pk }})#}
+{#        location.replace('/board1/comment_delete/{{ comment.pk }}/');#}
+{#    }#}
+{#</script>#}
+
+{% load bootstrap5 %}
+
+<!-- Comment with nested comments-->
+<div id="comment-{{ comment.pk }}" class="d-flex mt-5">
+    <!-- Parent comment-->
+    <div class="flex-shrink-0">
+        <img class="rounded-circle me-3" src="{{ comment.author.avatar_url }}" alt="pydenticon_image" style="height: 60px; width: 60px"/>
+    </div>
+    <div class="ms-1">
+        <div class="fw-bold mb-2">{{ comment.author }}
+            <span class="ms-2">
+                {% if comment.created_at == comment.updated_at %}
+                    <small class="text-muted">{{ comment.created_at | date:"Y.m.d H:i"}}</small>
+                {% else %}
+                    <small class="text-muted">{{ comment.updated_at | date:"Y.m.d H:i"}}</small>
+                {% endif %}
+            </span>
+        </div>
+        {{ comment.message | linebreaks }}
+        {% if user.is_authenticated and comment.author == user %}
+{#                                    <a role="button" class="btn btn-primary" style="font-size: 2.0px" href="{% url "blog:comment_edit" comment.pk %}">수정</a>#}
+{#            <a role="button" id="comment-pk-deliver" class="btn btn-danger" style="font-size: 12px" data-bs-toggle="modal" data-bs-target="#CommentDeleteModal">삭제</a>&nbsp;#}
+            <a role="button" class="btn btn-danger" style="font-size: 12px" onclick="commentDelete('{{ comment.pk }}');">댓글삭제</a>
+{#            {% include "blog/comment_delete_modal.html" %}#}
+        {% endif %}
+    </div>
+</div>
+<span id="comment-pk" style="display: none">{{ comment.pk }}</span>
+
+
+{#<script type="text/javascript">#}
+{#    $(document).ready(function () {#}
+{#        $("#comment-pk-deliver").click(function () {#}
+{#            var comment_pk = $("#comment-pk").val();#}
+{##}
+{#            $.ajax({#}
+{#                type: "POST",#}
+{#                url: "/blog/comment_pk_deliver/",#}
+{#                dataType: "json",#}
+{#                data: {#}
+{#                    'comment_pk': comment_pk,#}
+{#                    'csrfmiddlewaretoken': '{{csrf_token}}',#}
+{#                },#}
+{#                success: function (response) {#}
+{#                    console.log("pk를 전달했습니다.")#}
+{#                },#}
+{#            });#}
+{#        })#}
+{#    });#}
+{#</script>#}
+
+<script type="text/javascript">
+    function commentDelete(value) {
+        var comment_pk = value;
+        var delete_warning = confirm("댓글을 삭제하시겠습니까?");
+        if (delete_warning === true) {
+            $.ajax({
+                type: "POST",
+                url: "{% url "board1:comment_delete" %}",
+                dataType: "json",
+                data: {
+                    'comment_pk': comment_pk,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}',
+                },
+                success: function (response) {
+                    $("#" + "comment-" + response.comment_pk).remove()
+                    {#alert("댓글을 삭제했습니다.")#}
+                },
+            });
+        }
+    }
+</script>

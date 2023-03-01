@@ -1,11 +1,14 @@
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
+from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Video, Comment, Category
 from django.core.paginator import Paginator
 from .forms import CommentForm
 from django.contrib import messages
+from django.http import HttpResponse
+import json
 
 
 def video_list(request):
@@ -117,6 +120,14 @@ def comment_new(request, pk):
                 comment.author = request.user
                 comment.video = video
                 comment.save()
+                if request.is_ajax():
+                    return render(
+                        request,
+                        "firetube/_comment.html",
+                        {
+                            "comment": comment,
+                        },
+                    )
                 return redirect("firetube:video_detail", video.pk)
         else:
             comment_form = CommentForm()
@@ -161,12 +172,30 @@ def comment_new(request, pk):
 #     )
 
 
+# @login_required
+# def comment_delete(request, comment_pk):
+#     comment = get_object_or_404(Comment, pk=comment_pk)
+#     if request.user.is_authenticated and request.user == comment.author:
+#         comment.delete()
+#         messages.success(request, "댓글을 삭제했습니다.")
+#         return redirect(comment.video.get_absolute_url())
+#     else:
+#         raise PermissionDenied
+
+
 @login_required
-def comment_delete(request, comment_pk):
+def comment_delete(request):
+    comment_pk = request.POST.get("comment_pk")
     comment = get_object_or_404(Comment, pk=comment_pk)
     if request.user.is_authenticated and request.user == comment.author:
         comment.delete()
-        messages.success(request, "댓글을 삭제했습니다.")
-        return redirect(comment.video.get_absolute_url())
+        data = {
+            "comment_pk": comment_pk,
+        }
+        # messages.success(request, "댓글을 삭제했습니다.")
+        return HttpResponse(
+            json.dumps(data, cls=DjangoJSONEncoder), content_type="application/json"
+        )
+
     else:
         raise PermissionDenied

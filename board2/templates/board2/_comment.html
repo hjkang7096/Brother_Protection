@@ -1,3 +1,31 @@
+{#{% load bootstrap5 %}#}
+{##}
+{#<!-- Comment with nested comments-->#}
+{#<div class="d-flex mt-5">#}
+{#    <!-- Parent comment-->#}
+{#    <div class="flex-shrink-0">#}
+{#        <img class="rounded-circle me-3" src="{{ comment.author.avatar_url }}" alt="pydenticon_image" style="height: 60px; width: 60px"/>#}
+{#    </div>#}
+{#    <div class="ms-1">#}
+{#        <div class="fw-bold mb-2">{{ comment.author }}#}
+{#            <span class="ms-2">#}
+{#                {% if comment.created_at == comment.updated_at %}#}
+{#                    <small class="text-muted">{{ comment.created_at | date:"Y.m.d H:i"}}</small>#}
+{#                {% else %}#}
+{#                    <small class="text-muted">{{ comment.updated_at | date:"Y.m.d H:i"}}</small>#}
+{#                {% endif %}#}
+{#            </span>#}
+{#        </div>#}
+{#        {{ comment.message | linebreaks }}#}
+{#        {% if user.is_authenticated and comment.author == user %}#}
+{#                                    <a role="button" class="btn btn-primary" style="font-size: 2.0px" href="{% url "blog:comment_edit" comment.pk %}">수정</a>#}
+{#            <a role="button" class="btn btn-danger" style="font-size: 12px" data-bs-toggle="modal" data-bs-target="#CommentDeleteModal">삭제</a>&nbsp;#}
+{#            {% include "board2/comment_delete_modal.html" %}#}
+{#        {% endif %}#}
+{#    </div>#}
+{#</div>#}
+
+
 {% load bootstrap5 %}
 
 <!-- Comment with nested comments-->
@@ -56,7 +84,7 @@
         if (delete_warning === true) {
             $.ajax({
                 type: "POST",
-                url: "{% url "blog:comment_delete" %}",
+                url: "{% url "board2:comment_delete" %}",
                 dataType: "json",
                 data: {
                     'comment_pk': comment_pk,
@@ -70,3 +98,4 @@
         }
     }
 </script>
+

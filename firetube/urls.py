@@ -18,6 +18,9 @@ urlpatterns = [
     path("<int:pk>/", views.video_detail, name="video_detail"),
     path("<int:pk>/new_comment/", views.comment_new, name="new_comment"),
     path(
-        "comment_delete/<int:comment_pk>/", views.comment_delete, name="comment_delete"
+        # "comment_delete/<int:comment_pk>/", views.comment_delete, name="comment_delete"
+        "comment_delete/",
+        views.comment_delete,
+        name="comment_delete",
     ),
 ]
