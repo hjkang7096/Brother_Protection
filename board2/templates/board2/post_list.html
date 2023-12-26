@@ -29,7 +29,7 @@
                                 </span>
                                 <a href="{% url "board2:post_detail" post.pk %}">{{ post.title }}</a>
                                 {% if post.created_at >= diff_time %}
-                                    &nbsp;<i class="fa-regular fa-comment-dots" style="font-size: 5px; color: red"> new</i>
+                                    &nbsp;<i class="fa-regular fa-comment-dots" style="font-size: 8px; color: red"> new</i>
                                 {% endif %}
                             </td>
                             <td class="text-lg-center">

@@ -4,6 +4,7 @@ db.sqlite3
 venv
 .venv
 .env
-.env(prod)
-.env(total_db)
+.env(pre_prod)
+.env.prod
+.env.db
 logs
