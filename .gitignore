@@ -7,4 +7,5 @@ venv
 .env(pre_prod)
 .env.prod
 .env.db
+.env.dev
 logs
